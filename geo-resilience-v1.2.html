@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>West Bandung Local Resilience (R-Local) Dashboard</title>
+<title>GEO RESILIENCE DASHBOARD</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css">
 <script defer src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -10,6 +10,7 @@
 *{box-sizing:border-box} body{margin:0} header,main{max-width:1530px;margin:auto;padding:24px clamp(16px,4vw,52px)}
 header{border-bottom:1px solid #cadada;padding-bottom:17px} h1,h2,h3,p{margin:0} h1{font-size:clamp(25px,3vw,39px);letter-spacing:-.045em;line-height:1.12}
 header p,.hint{color:var(--muted);font-size:.87rem;margin-top:5px}
+header .dashboard-subtitle{max-width:64ch;font-size:1rem;font-weight:550}
 main{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:18px;grid-template-areas:"map graph" "scenario results"}
 .map-panel{grid-area:map;display:flex;flex-direction:column}
 .graph-panel{grid-area:graph}.scenario-panel{grid-area:scenario}.results-panel{grid-area:results}
@@ -31,11 +32,11 @@ th,td{padding:4px 6px;border-bottom:1px solid var(--line);white-space:nowrap} #e
 </style>
 </head>
 <body>
-<header class="row"><div><h1 data-i18n>West Bandung Local Resilience (R-Local) Dashboard</h1><p><span data-i18n>Engineering resilience by sub-district</span> · <span id="period"></span></p></div><label><span data-i18n>Language</span> <select id="language"><option value="en">English</option><option value="id">Bahasa Indonesia</option></select></label></header>
+<header class="row"><div><h1 data-i18n>GEO RESILIENCE DASHBOARD</h1><p class="dashboard-subtitle" data-i18n>A Bistability-Based Geoinformatics System for Assessing Community Economic Resilience to Landslides v.1.2</p><p id="period"></p></div><label><span data-i18n>Language</span> <select id="language"><option value="en">English</option><option value="id">Bahasa Indonesia</option></select></label></header>
 <p id="error" role="alert"></p>
 <main>
 <section class="map-panel" aria-labelledby="mapTitle">
-<div class="pad row"><div><h2 id="mapTitle" data-i18n>Mean R-Local by sub-district</h2><p class="hint" data-i18n>Select a sub-district to compare its period mean and annual results.</p></div><label><span data-i18n>Map view</span> <select id="mapView"><option value="original" data-i18n>Original results</option><option value="scenario" data-i18n>Scenario</option></select></label></div>
+<div class="pad row"><div><h2 id="mapTitle" data-i18n>Mean Local Resilience (R-Local) by Sub-district</h2><p class="hint" data-i18n>Select a sub-district to compare its period mean and annual results.</p></div><label><span data-i18n>Map view</span> <select id="mapView"><option value="original" data-i18n>Original results</option><option value="scenario" data-i18n>Scenario</option></select></label></div>
 <div id="map" data-i18n-aria="West Bandung sub-districts" aria-label="West Bandung sub-districts"></div>
 <div class="pad"><p class="hint" data-i18n>Scenario settings apply to all sub-districts on the map.</p><div class="legend" id="legend"></div><p class="hint" id="mapThreshold"></p></div>
 </section>
@@ -225,10 +226,10 @@ const indonesian = {
   "Not applicable": "Tidak berlaku",
   "DRB measures how far the damage-pressure parameter s is from the break-even value. A smaller distance means the model is closer to that boundary. DRB applies only when there is one stable equilibrium. The scenario column updates as you move the sliders.": "DRB mengukur jarak parameter tekanan akibat kerusakan s dari nilai ambang impas. Jarak yang lebih kecil berarti model lebih dekat ke ambang tersebut. DRB hanya berlaku ketika ada satu titik keseimbangan stabil. Kolom skenario diperbarui saat penggeser digerakkan.",
 
-  "West Bandung Local Resilience (R-Local) Dashboard": "Dasbor Ketahanan Lokal (R-Local) Bandung Barat",
-  "Engineering resilience by sub-district": "Ketahanan rekayasa per kecamatan",
+  "GEO RESILIENCE DASHBOARD": "DASBOR GEO RESILIENCE",
+  "A Bistability-Based Geoinformatics System for Assessing Community Economic Resilience to Landslides v.1.2": "Sistem Geoinformatika Berbasis Bistability Framework untuk Mengukur Resiliensi Ekonomi Komunitas Terhadap Longsor v.1.2",
   "Language": "Bahasa",
-  "Mean R-Local by sub-district": "Rata-rata R-Local per kecamatan",
+  "Mean Local Resilience (R-Local) by Sub-district": "Rata-rata Ketahanan Lokal (R-Local) Per Kecamatan",
   "Select a sub-district to compare its period mean and annual results.": "Pilih kecamatan untuk membandingkan rata-rata periode dan hasil tahunan.",
   "Mean R-Local": "Rata-rata R-Local",
   "Medium": "Sedang",
@@ -355,7 +356,7 @@ function updateLanguage() {
   language = languageSelect.value;
   try { localStorage.setItem('rlocal-language', language); } catch {}
   document.documentElement.lang = language;
-  document.title = t('West Bandung Local Resilience (R-Local) Dashboard');
+  document.title = t('GEO RESILIENCE DASHBOARD');
   for (const [node, original] of staticLabels) node.textContent = t(original);
   document.querySelectorAll('[data-i18n-aria]').forEach(node => node.setAttribute('aria-label', t(node.dataset.i18nAria)));
   if (updateMapLanguage) updateMapLanguage();
